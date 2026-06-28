@@ -24,13 +24,12 @@ function flagImg(code) {
 async function loadStandings() {
     let data = { predictions: {}, results: {} };
     try {
-        const res = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/data.json', {
-            headers: { 'Authorization': 'token ' + GITHUB_TOKEN }
+        const res = await fetch(JSONBIN_URL + '/latest', {
+            headers: { 'X-Access-Key': JSONBIN_KEY }
         });
         if (res.ok) {
-            const file = await res.json();
-            const text = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
-            data = JSON.parse(text);
+            const result = await res.json();
+            data = result.record;
         }
     } catch (e) {
         console.log('Load error:', e);

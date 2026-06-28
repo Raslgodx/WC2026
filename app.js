@@ -28,45 +28,32 @@ function flagImg(code) {
 
 async function loadDB() {
     try {
-        const res = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/data.json', {
-            headers: { 'Authorization': 'token ' + GITHUB_TOKEN }
+        const res = await fetch(JSONBIN_URL + '/latest', {
+            headers: { 'X-Access-Key': JSONBIN_KEY }
         });
         if (!res.ok) return;
-        const file = await res.json();
-        const text = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
-        dbData = JSON.parse(text);
+        const data = await res.json();
+        dbData = data.record;
     } catch (e) {
         console.log('Load error:', e);
     }
 }
 
 async function saveDB() {
-    let sha = null;
     try {
-        const res = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/data.json', {
-            headers: { 'Authorization': 'token ' + GITHUB_TOKEN }
+        const res = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: {
+                'X-Access-Key': JSONBIN_KEY,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dbData)
         });
-        if (res.ok) {
-            const file = await res.json();
-            sha = file.sha;
-        }
-    } catch {}
-
-    const body = {
-        message: 'Update predictions - ' + new Date().toISOString(),
-        content: btoa(unescape(encodeURIComponent(JSON.stringify(dbData, null, 2))))
-    };
-    if (sha) body.sha = sha;
-
-    const res = await fetch('https://api.github.com/repos/' + GITHUB_REPO + '/contents/data.json', {
-        method: 'PUT',
-        headers: {
-            'Authorization': 'token ' + GITHUB_TOKEN,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
-    return res.ok;
+        return res.ok;
+    } catch (e) {
+        console.log('Save error:', e);
+        return false;
+    }
 }
 
 window.startPredicting = async function() {
