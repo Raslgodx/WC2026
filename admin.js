@@ -29,7 +29,7 @@ let refreshInterval = null;
 async function loadDB() {
     try {
         const res = await fetch(JSONBIN_URL + '/latest', {
-            headers: { 'X-Access-Key': JSONBIN_KEY }
+            headers: { 'X-Master-Key': JSONBIN_KEY }
         });
         if (res.ok) {
             const data = await res.json();
@@ -45,7 +45,7 @@ async function saveDB() {
         const res = await fetch(JSONBIN_URL, {
             method: 'PUT',
             headers: {
-                'X-Access-Key': JSONBIN_KEY,
+                'X-Master-Key': JSONBIN_KEY,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(dbData)

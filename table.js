@@ -25,7 +25,7 @@ async function loadStandings() {
     let data = { predictions: {}, results: {} };
     try {
         const res = await fetch(JSONBIN_URL + '/latest', {
-            headers: { 'X-Access-Key': JSONBIN_KEY }
+            headers: { 'X-Master-Key': JSONBIN_KEY }
         });
         if (res.ok) {
             const result = await res.json();
