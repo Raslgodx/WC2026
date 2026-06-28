@@ -1,2 +1,2 @@
-const GITHUB_TOKEN = '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';
+const GITHUB_TOKEN = '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';
 const GITHUB_REPO = 'raslgodx/WC2026';
