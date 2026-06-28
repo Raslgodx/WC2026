@@ -1,2 +1,1 @@
-[https://raslgodx.github.io/wc2026
-](https://raslgodx.github.io/wc226/index.html)
+[https://raslgodx.github.io/WC2026
