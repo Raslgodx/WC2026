@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица результатов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video id="bg-video" autoplay loop muted playsinline></video>
+    <div id="overlay"></div>
+    <div class="container">
+        <header>
+            <h1>Таблица результатов</h1>
+            <p class="subtitle">Очки за правильные прогнозы</p>
+            <div class="nav-links">
+                <a href="index.html" class="nav-btn">Прогнозы</a>
+            </div>
+        </header>
+
+        <div id="loading" class="loading">Загрузка...</div>
+
+        <div id="standingsSection" class="hidden">
+            <div class="standings-info">
+                <span>1 балл за каждую угаданную победу</span>
+            </div>
+            <table id="standingsTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Имя</th>
+                        <th>Баллы</th>
+                    </tr>
+                </thead>
+                <tbody id="standingsBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="noResults" class="hidden no-results">
+            <h2>Результатов пока нет</h2>
+            <p>Админ ещё не вёл матчи</p>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="table.js"></script>
+    <script>
+        (function() {
+            var vid = document.getElementById('bg-video');
+            vid.src = 'background.mp4';
+            vid.volume = 0.1;
+            vid.muted = false;
+            vid.play().catch(function() {
+                vid.muted = true;
+                vid.play().then(function() {
+                    document.addEventListener('click', function() {
+                        vid.muted = false;
+                        vid.volume = 0.1;
+                    }, { once: true });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

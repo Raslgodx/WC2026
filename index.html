@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧМ-2026 Прогнозы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video id="bg-video" autoplay loop muted playsinline></video>
+    <div id="overlay"></div>
+    <div class="container">
+        <header>
+            <h1>Плей-офф ЧМ-2026</h1>
+            <p class="subtitle">Прогнозы на 1/16 финала</p>
+            <div class="nav-links">
+                <a href="table.html" class="nav-btn">Таблица результатов</a>
+            </div>
+        </header>
+
+        <div class="deadline-banner">
+            <span>Приём прогнозов до: <strong>29 июня 19:00 (МСК)</strong></span>
+        </div>
+
+        <div class="auth-section">
+            <label for="username">Как тебя зовут?</label>
+            <input type="text" id="username" placeholder="Введи своё имя и фамилию" autocomplete="off">
+            <div class="confirm-text">Я подтверждаю, что готов перевести 200₽ победителю после окончания ЧМ</div>
+            <button id="startBtn" onclick="startPredicting()">Начать</button>
+        </div>
+
+        <div id="bracketSection" class="hidden">
+            <div class="bracket-grid">
+                <div class="bracket-col col-matches" id="col-left-matches"></div>
+                <div class="bracket-col col-qf" id="col-left-qf"></div>
+                <div class="bracket-col col-center"><div class="trophy-icon"></div></div>
+                <div class="bracket-col col-qf" id="col-right-qf"></div>
+                <div class="bracket-col col-matches" id="col-right-matches"></div>
+            </div>
+            <button id="submitBtn" onclick="submitPredictions()" class="submit-btn">Отправить прогноз</button>
+        </div>
+
+        <div id="successMessage" class="hidden success">
+            <h2>Прогноз принят!</h2>
+            <p>Твой выбор сохранён. Удачи!</p>
+            <a href="table.html" class="nav-btn">Посмотреть таблицу</a>
+        </div>
+
+        <div id="alreadyVoted" class="hidden already-voted">
+            <h2>Ты уже голосовал!</h2>
+            <p>Каждый может проголосовать только один раз.</p>
+            <a href="table.html" class="nav-btn">Посмотреть таблицу</a>
+        </div>
+
+        <div id="participantsSection" class="hidden participants-section"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        (function() {
+            var vid = document.getElementById('bg-video');
+            vid.src = 'background.mp4';
+            vid.volume = 0.1;
+            vid.muted = false;
+            vid.play().catch(function() {
+                vid.muted = true;
+                vid.play().then(function() {
+                    document.addEventListener('click', function() {
+                        vid.muted = false;
+                        vid.volume = 0.1;
+                    }, { once: true });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
