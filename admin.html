@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ панель</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Админ панель</h1>
+            <p class="subtitle">Управление прогнозами</p>
+        </header>
+
+        <div class="admin-auth">
+            <label for="adminKey">Ключ доступа:</label>
+            <input type="password" id="adminKey" placeholder="Введите ключ">
+            <button onclick="adminLogin()">Войти</button>
+        </div>
+
+        <div id="adminPanel" class="hidden">
+            <div class="admin-section">
+                <h2>Все прогнозы (<span id="predCounter">0</span>)</h2>
+                <div id="allPredictions"></div>
+            </div>
+
+            <div class="admin-section">
+                <h2>Ввести результаты матчей</h2>
+                <div id="resultsForm"></div>
+                <button onclick="saveResults()" class="submit-btn">Сохранить результаты</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
